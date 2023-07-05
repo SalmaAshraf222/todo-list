@@ -3,27 +3,31 @@ import { useState } from 'react';
 const List=({addItem,deleteItemHandler})=>{
     const[text,setText]=useState("")
     const[newId , setNewId] = useState(0)
-    // const[items,setItems]=useState([])
+    const [complete,setComplete]=useState()
+    const [edit,setEdit]=useState()
 
-const handleChange=(e)=>{
+   
+
+ const handleChange=(e)=>{
 setText(e.target.value)
-}
+
+};
+
 
 const handleClick=(event)=>{
     event.preventDefault()
-   
     setNewId(newId + 1)
-    addItem(text , newId)
-// setItems([
-//     ...items,
-//     {text:text}
-// ])
+    addItem(text , newId,complete,edit)
+   
 setText("")
 }
 
-const handleDelete=()=>{
+const handleDelete=(e)=>{
+  e.preventDefault()
   deleteItemHandler(text)
 }
+
+
 
     return(
         <div className='container-fluid d-flex  justify-content-center mt-3 '>
@@ -31,9 +35,9 @@ const handleDelete=()=>{
             <form className='row d-flex justify-content-center'>
               <input type="text"
               className='form-control'
-              value={text}
-              onChange={handleChange}/>
-
+            value={text}
+              onChange={handleChange}
+              />
               <button  
               className='mt-3 btn btn-light w-25'
               onClick={handleClick}>Add</button>
