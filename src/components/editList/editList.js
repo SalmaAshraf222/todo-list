@@ -15,7 +15,6 @@ const EditList=({newVal,items , itemId,handleUpdate})=>{
    }
   
  
-console.log(items);
 
 
 return(
@@ -32,6 +31,7 @@ return(
             />
          
     <button className='ms-3 w-25 btn btn-light' onClick={(event)=>handleUpdateClick(event,itemId)} >Update</button>
+
 
         </form>
           

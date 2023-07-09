@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const List=({addItem,deleteItemHandler})=>{
+const List=({addItem,deleteAllItems})=>{
     const[text,setText]=useState("")
     const[newId , setNewId] = useState(0)
     const [complete,setComplete]=useState()
@@ -24,7 +24,7 @@ setText("")
 
 const handleDelete=(e)=>{
   e.preventDefault()
-  deleteItemHandler(text)
+  deleteAllItems(text)
 }
 
 
