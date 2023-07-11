@@ -12,10 +12,13 @@
     font-weight: 600;
     font-size: 16px;
     margin: 0 10px;
-    border-radius: 6px;
+    border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
     background: transparent;
-    color: #eee;
+    color: rgb(138, 127, 127);
     border-color: #eee;
 }
+
+
+

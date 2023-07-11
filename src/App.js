@@ -10,6 +10,7 @@ function App() {
   const [todoToShow,setTodoToShow]=useState("All")
   const [toggleAllComplete,setToggleAllComplete]=useState(true)
   let itemsShow = items
+  const [itemShown,setItemShown]=useState("")
   
 
   
@@ -48,6 +49,9 @@ function App() {
 
   const updateTodoToShow=(s)=>{
     setTodoToShow(s)
+    if(items.every(item=>item.complete===true)){
+      setItemShown("no  items")
+    }
   }
 
   const removeAllComplete=()=>{
@@ -78,16 +82,18 @@ console.log(items);
 
 
   if(todoToShow==="active"){
-   
    itemsShow=items.filter((item)=>
    item.complete===false
    )
-    
+   
   }else if(todoToShow==="complete"){
     itemsShow=items.filter((item)=>
     item.complete === true
     )
-  };
+
+  }
+
+  
 
   const lastIndex = currentPage * itemsPerPage;
   const firstIndex = lastIndex - itemsPerPage;
@@ -97,9 +103,12 @@ console.log(items);
   return (
       <div className="container-fluid " style={{ height: "100vh" }}>
   
+        <div className="row d-flex justify-content-center">
         <h1 className="mt-3 ms-3 border border-light rounded shadow-sm w-25 d-flex justify-content-center ">
           <em>Your todo list</em>
         </h1>
+        </div>
+        
   
         <div className="row mt-5 d-flex justify-content-center">
           <h5 className="d-flex  justify-content-center mt-3">
@@ -114,45 +123,53 @@ console.log(items);
   
         <div className="row mt-5 d-flex justify-content-center h-100">
   
-          <div className="col-6">
+          <div className="row  ">
           <h5 className="mt-3 d-flex justify-content-center" >
-            Items appear below
+          Items appear below
           </h5>
-            <div className="row  h-75">
-            <ListItems
-            allItems={items}
-            items={currentItems}
-            deleteItemHandler={deleteItemHandler}
-            toggleComplete={toggleComplete}
-            editItem={editItem}
-            setItems={setItems}
-          />
-            </div>
-
-            <div className="row">
-            <Pagination
-        totalPosts={items.length}
-        postsPerPage={itemsPerPage}
-        setCurrentPage={setCurrentPage}
-      /> 
-            </div>
           </div>
-  
-  <div className="col-6 d-flex flex-column justify-content-center ">
-  <div className="row w-100 d-flex justify-content-center ">
+
+
+          <div className="row w-50 d-flex justify-content-center mt-5 " style={{height:"20px"}}>
     <div className="col d-flex justify-content-evenly">
     <button className=' btn btn-light h-100  ' onClick={()=>updateTodoToShow("all")}>All</button>
     <button className=' btn btn-light h-100 ' onClick={()=>updateTodoToShow("active")}>Active</button>
     <button className=' btn btn-light h-100 ' onClick={()=>updateTodoToShow("complete")}>Complete</button>
     </div>
           </div>
+
+            <div className="row d-flex justify-content-center mt-3  ">
+              {itemsShow.length != 0 ?
+              <ListItems 
+              allItems={items}
+              items={currentItems}
+              deleteItemHandler={deleteItemHandler}
+              toggleComplete={toggleComplete}
+              editItem={editItem}
+              setItems={setItems}
+            /> : "no items to show"
+               }
+            
+            </div>
+
+            <div className="row d-flex flex-column align-content-center mt-5 ">
+          {items.some((item)=>item.complete)?(<button className='mt-3 btn btn-light w-25' onClick={removeAllComplete}>Remove all complete</button>)
+          :null}
+            <button className=' mt-3 btn btn-light w-25' onClick={toggleAllCompleteItems}>Toggle all complete:{`${toggleAllComplete}`}</button>
+          </div>
+
+            <div className="row mt-5  h-25 ">
+            <Pagination
+        totalPosts={items.length}
+        postsPerPage={itemsPerPage}
+        setCurrentPage={setCurrentPage}
+      /> 
+            </div>
   
-          <div className="row w-100 d-flex justify-content-center mt-5 ">
-          {items.some((item)=>item.complete)?(<button className='mt-3 btn btn-light w-50' onClick={removeAllComplete}>Remove all complete</button>):null}
-            <button className='mb-5 mt-3 btn btn-light w-50' onClick={toggleAllCompleteItems}>Toggle all complete:{`${toggleAllComplete}`}</button>
-          </div>
+  
+  
+        
   </div>
-          </div>
   
       </div>
     );
@@ -163,7 +180,46 @@ export default App;
 
 
 
+{/* <div className="row mt-5 d-flex justify-content-center h-100">
+  
+<div className="col  ">
+<h5 className="mt-5 d-flex justify-content-center" >
+  Items appear below
+</h5>
+  <div className="row  h-75 mt-5">
+  <ListItems
+  allItems={items}
+  items={currentItems}
+  deleteItemHandler={deleteItemHandler}
+  toggleComplete={toggleComplete}
+  editItem={editItem}
+  setItems={setItems}
+/>
+  </div>
 
+  <div className="row h-25 d-flex flex-column justify-content-center">
+  <Pagination
+totalPosts={items.length}
+postsPerPage={itemsPerPage}
+setCurrentPage={setCurrentPage}
+/> 
+  </div>
+</div>
+
+<div className="col-6 d-flex flex-column justify-content-center ">
+<div className="row w-100 d-flex justify-content-center ">
+<div className="col d-flex justify-content-evenly">
+<button className=' btn btn-light h-100  ' onClick={()=>updateTodoToShow("all")}>All</button>
+<button className=' btn btn-light h-100 ' onClick={()=>updateTodoToShow("active")}>Active</button>
+<button className=' btn btn-light h-100 ' onClick={()=>updateTodoToShow("complete")}>Complete</button>
+</div>
+</div>
+<div className="row d-flex flex-column align-content-center mt-5 ">
+          {items.some((item)=>item.complete)?(<button className='mt-3 btn btn-light w-50' onClick={removeAllComplete}>Remove all complete</button>):null}
+            <button className=' mt-3 btn btn-light w-50' onClick={toggleAllCompleteItems}>Toggle all complete:{`${toggleAllComplete}`}</button>
+          </div>
+  </div>
+          </div> */}
 
 
 

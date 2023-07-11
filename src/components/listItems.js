@@ -23,37 +23,50 @@ const editItemHandler=(any)=>{
      }))
   }
 
+  const handleCancel=(itemId)=>{
+    setItems(allItems.map((item)=>{
+      if(item.id===itemId){
+        return{...item,edit:false}
+      }else{
+        return item
+      }
+     }))
+    
+  }
+
+ 
+
   
   
 return(
-        <div  className="container-fluid mt-5 ">
-          <div className="row ms-5 ">
+        <div  className="container-fluid mt-5 d-flex justify-content-center ">
+          <div className="row w-50 h-100  border border-light shadow rounded">
           {items.map(item=>(
-            <ul  key={item.id}>
+            <ul className="ms-3" key={item.id}>
  <li>
 
-  <div className="col-6 bg-danger">
+  <div className="col-6 ">
   <div onClick={()=>toggleComplete(item.id)}
  style={{ textDecoration: item.complete? "line-through" : null }}>
   {item.text} 
     </div> 
   </div>
 
-  <div className="col-6 d-flex justify-content-start bg-primary">
+  {item.edit===false? <div className="col-6 ">
   <button className='btn btn-light' onClick={(e)=>editItemHandler(item.id)}>Edit</button>
-
 <button className='ms-2 btn btn-light' onClick={()=>deleteItemHandler(item.id)}>Delete</button>
 
-{item.edit===true?<EditList items={items} itemId={item.id} newVal={item.text} handleUpdate={handleUpdate} />:null}
+
   </div>
- 
+  :null}
+  {item.edit===true?<EditList items={items} itemId={item.id} newVal={item.text} handleUpdate={handleUpdate} handleCancel={handleCancel}/>:null}
+
 
     
   
       </li>
    </ul>
           ))}
- 
  </div>   
 
  </div>

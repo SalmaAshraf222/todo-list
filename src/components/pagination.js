@@ -5,14 +5,26 @@ const Pagination =({totalPosts,postsPerPage,setCurrentPage})=>{
   for(let i = 1;i<=Math.ceil(totalPosts/postsPerPage);i++){
     pages.push(i)
   }
+
+
+  
 return(
-   <div className="pagination mt-3" >
+  <div className="pagination " >
     {
       pages.map((page,index)=>{
         return <button key={index} onClick={()=>setCurrentPage(page)}>{page}</button>
       })
     }
-   </div>
+   </div> 
 )
 }
 export default Pagination
+
+
+{/* <div className="pagination mt-3" >
+    {
+      pages.map((page,index)=>{
+        return <button key={index} onClick={()=>setCurrentPage(page)}>{page}</button>
+      })
+    }
+   </div> */}

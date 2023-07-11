@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const EditList=({newVal,items , itemId,handleUpdate})=>{
+const EditList=({newVal,items , itemId,handleUpdate,handleCancel})=>{
     const [updatedVal,setupdatedVal]=useState(newVal)
 
     const handleChange=(e)=>{
@@ -14,28 +14,29 @@ const EditList=({newVal,items , itemId,handleUpdate})=>{
   
    }
   
+   const handleCancelClick=(event,itemId)=>{
+    event.preventDefault()
+    handleCancel(itemId)
+   }
  
 
 
 return(
     <div className='container-fluid 
-    mt-3
+    mt-3 w-100
      '>
-       
-        <form className='row '>
-            <input
+       <div className="row  ">
+        <form className="d-flex  justify-content-start" >
+          <input
             type="text"
-            className='form-control w-50'
+            className='form-control w-25 '
           value={updatedVal}
         onChange={handleChange}
             />
-         
-    <button className='ms-3 w-25 btn btn-light' onClick={(event)=>handleUpdateClick(event,itemId)} >Update</button>
-
-
+          <button className='ms-3  btn btn-light' onClick={(event)=>handleUpdateClick(event,itemId)} >Update</button>
+    <button className='ms-3  btn btn-light' onClick={(event)=>handleCancelClick(event,itemId)}>Cancel</button>
         </form>
-          
-
+        </div>
 
 
 </div>
